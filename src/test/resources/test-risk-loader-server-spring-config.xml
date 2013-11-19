@@ -10,19 +10,21 @@
                 http://www.springframework.org/schema/util
                 http://www.springframework.org/schema/util/spring-util.xsd">
                 
-	<bean id="riskSensitivityDao" class="com.heb.finance.analytics.RiskSensitivityDao">
+	<bean id="timedAggMap" class="java.util.concurrent.ConcurrentHashMap"/>
+	
+	<bean id="riskSensitivityDao" class="com.heb.finance.analytics.RiskSensitivityDao" destroy-method="shutdown">
 		<constructor-arg index="0" value="MyCluster" />
-		<constructor-arg index="1" value="localhost" />
-		<constructor-arg index="2" value="Analytics" />
-	</bean>
-
-	<bean id="riskSensitivityPathPersister"
-		class="com.heb.finance.analytics.RiskSensitivityPathPersister">
-		<constructor-arg index="0" ref="riskSensitivityDao" />
+		<constructor-arg index="1" value="10.0.1.52" />
+		<constructor-arg index="2" value="Analytics" />	
 	</bean>
 	
-	<bean id="riskSensitivityPersisterService" class="com.heb.finance.analytics.RiskSensitivityPersisterServiceImpl">
-		<constructor-arg index="0" value="5" />
+	<bean id="riskSensitivityPathPersister" class="com.heb.finance.analytics.RiskSensitivityPathPersister">
+	</bean>	
+
+	<bean id="riskSensitivityAggregator" class="com.heb.finance.analytics.RiskHierarchyAggregator" init-method="init" >
+	</bean>	
+
+	<bean id="riskSensitivityPersisterService" class="com.heb.finance.analytics.RiskSensitivityPersisterServiceImpl">		
 	</bean>
 
 </beans>

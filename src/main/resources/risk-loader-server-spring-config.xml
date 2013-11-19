@@ -12,14 +12,19 @@
 
 	<import resource="classpath:core-spring-config.xml"/>
 	
-	<bean id="riskSensitivityDao" class="com.lab49.finance.analytics.RiskSensitivityDao">
+	<bean id="timedAggMap" class="java.util.concurrent.ConcurrentHashMap"/>
+	
+	<bean id="riskSensitivityDao" class="com.heb.finance.analytics.RiskSensitivityDao" destroy-method="shutdown">
 		<constructor-arg index="0" value="MyCluster" />
-		<constructor-arg index="1" value="localhost:9160" />
+		<constructor-arg index="1" value="localhost" />
 		<constructor-arg index="2" value="Analytics" />	
 	</bean>
 	
-	<bean id="riskSensitivityPathPersister" class="com.lab49.finance.analytics.RiskSensitivityPathPersister">
+	<bean id="riskSensitivityPathPersister" class="com.heb.finance.analytics.RiskSensitivityPathPersister">
 		<constructor-arg index="0" ref="riskSensitivityDao" />
+	</bean>	
+
+	<bean id="riskSensitivityAggregator" class="com.heb.finance.analytics.RiskSensitivityAggregator" init-method="init" >
 	</bean>	
 
 </beans>

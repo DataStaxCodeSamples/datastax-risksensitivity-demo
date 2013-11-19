@@ -1,11 +1,11 @@
 package com.heb.finance.analytics;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.datastax.driver.core.PreparedStatement;
 import com.heb.finance.analytics.model.RiskSensitivity;
 import com.sun.istack.NotNull;
 
@@ -14,25 +14,16 @@ public class RiskSensitivityPersisterServiceImpl implements RiskSensitivityPersi
 	@Autowired
 	private RiskSensitivityPathPersister riskSensitivityPathPersister;
 	
-	private ExecutorService executorService; 
-	
-	public void setRiskSensitivityPathPersister(RiskSensitivityPathPersister riskSensitivityPathPersister) {
-		this.riskSensitivityPathPersister = riskSensitivityPathPersister;
-	}
+	@Resource
+	private Map<String, Long> timedAggMap;
 
-	@SuppressWarnings("serial")
-	public RiskSensitivityPersisterServiceImpl(int noOfWorkers) {
-		executorService = Executors.newFixedThreadPool(noOfWorkers);
+	public RiskSensitivityPersisterServiceImpl() {
 	}
 	
 	@Override
 	public void persist(@NotNull final RiskSensitivity riskSensitivity){
 		
-		executorService.execute(new Runnable(){
-			@Override
-			public void run() {
-				riskSensitivityPathPersister.batchInsert(riskSensitivity);				
-			}			
-		});	
+		riskSensitivityPathPersister.insert(riskSensitivity);
+		timedAggMap.put(riskSensitivity.getPath(), System.currentTimeMillis() + 1000);
 	}
 }

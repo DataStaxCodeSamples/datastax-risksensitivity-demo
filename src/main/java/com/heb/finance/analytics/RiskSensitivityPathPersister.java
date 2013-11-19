@@ -1,23 +1,21 @@
 package com.heb.finance.analytics;
 
-import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.heb.finance.analytics.model.RiskSensitivity;
 
 public class RiskSensitivityPathPersister{
 
-	private final RiskSensitivityDao riskSensitivityDao;
-	private final Map<String, Long> timedAggMap;
+	@Autowired
+	private RiskSensitivityDao riskSensitivityDao;	
 	
-	public RiskSensitivityPathPersister(RiskSensitivityDao riskSensitivityDao, Map<String, Long> timedAggMap){
-		this.riskSensitivityDao = riskSensitivityDao;
-		this.timedAggMap = timedAggMap;
+	public RiskSensitivityPathPersister(){
 	}
 
-	public void batchInsert(RiskSensitivity riskSensitivity) {
+	public void insert(RiskSensitivity riskSensitivity) {
 		
 		String hierarchyParent = riskSensitivity.getPath();
 		String position = riskSensitivity.getPosition();
-		this.riskSensitivityDao.insertBatch(riskSensitivity.getName(), hierarchyParent, position, riskSensitivity.getValue().doubleValue());		
+		this.riskSensitivityDao.insert(riskSensitivity.getName(), hierarchyParent, position, riskSensitivity.getValue().doubleValue());		
 	}
 }

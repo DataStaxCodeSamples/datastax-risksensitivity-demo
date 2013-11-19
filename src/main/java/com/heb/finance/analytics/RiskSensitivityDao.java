@@ -35,11 +35,6 @@ public class RiskSensitivityDao {
 		this.insertStmt = this.session.prepare(INSERT);
 		this.getStmt = this.session.prepare(GET);
 	}
-
-	@Override
-	public void finalize(){
-		this.shutdown();
-	}
 	
 	public void shutdown(){
 		System.out.println("No of distinct hierarchys : " + hierarchySet.size());
@@ -47,7 +42,12 @@ public class RiskSensitivityDao {
 		this.cluster.shutdown();
 	}
 
-	public void insertBatch(String riskSensitivityName, String hierarchyParent, String position, double value) {
+	public void insert(String riskSensitivityName, String hierarchyParent, String position, double value) {
+		if (hierarchyParent.equals("")){ 
+			System.err.println("Hierarchy is empty ! " + position + "-" + riskSensitivityName);
+			return;
+		}
+		
 		BoundStatement stmt = new BoundStatement(insertStmt);				
 		session.execute(stmt.bind(hierarchyParent, position, riskSensitivityName, value));
 		hierarchySet.add(hierarchyParent);
