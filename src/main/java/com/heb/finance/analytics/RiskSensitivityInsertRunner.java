@@ -34,7 +34,7 @@ public class RiskSensitivityInsertRunner {
 		String stopSizeStr = PropertyHelper.getProperty("stopSize", MAX_SIZE);
 		STOP_COUNTER = Long.parseLong(stopSizeStr);
 		
-		String keyspace = PropertyHelper.getProperty("keyspace", "analytics");
+		String keyspace = PropertyHelper.getProperty("keyspace", "dse_demo_analytics");
 		String contactPoints = PropertyHelper.getProperty("contactPoints", "127.0.0.1");
 		String clusterName = PropertyHelper.getProperty("clusterName", "Test Cluster");
 		

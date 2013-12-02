@@ -1,4 +1,4 @@
-use analytics; 
+use dse_demo_analytics; 
 
 create table risk_sensitivities_hierarchy ( 
 	hier_path text,

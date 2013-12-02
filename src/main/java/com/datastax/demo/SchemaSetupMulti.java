@@ -7,7 +7,7 @@ public class SchemaSetupMulti extends SchemaSetup {
 
 	public void setUp() {
 		
-		String keyspace = PropertyHelper.getProperty("keyspace", "analytics");
+		String keyspace = PropertyHelper.getProperty("keyspace", "dse_demo_analytics");
 		
 		DROP_KEYSPACE = "DROP KEYSPACE " + keyspace;
 		CREATE_KEYSPACE = "CREATE KEYSPACE " + keyspace + " WITH replication = "
