@@ -14,11 +14,11 @@ There is a lag due to duplicate parts of the hierarchy updating more than others
 
 For example 
 
-We insert Frankfurt/FX/desk10/trader7/Position23 with sensitivities. 
-We pass Frankfurt/FX/desk10/trader7 to the queue to be aggregated. 
-After all positions for Frankfurt/FX/desk10/trade7 have been aggregated then
-We pass Frankfurt/FX/desk10 to the queue 
-And so on until we get aggregate all asset types for Frankfurt.
+    We insert Frankfurt/FX/desk10/trader7/Position23 with sensitivities calculations
+    We pass Frankfurt/FX/desk10/trader7 to the queue to be aggregated. 
+    After all positions for Frankfurt/FX/desk10/trade7 have been aggregated then
+    We pass Frankfurt/FX/desk10 to the queue 
+    And so on until we get aggregate all asset types for Frankfurt.
 
 In this demo there are 10 locations, 10 asset types, 20 desks, 20 Traders and 100 positions. This gives 4 millions variations of the hierarchy. Each position can have 10 sensitivities. 
 
@@ -28,17 +28,24 @@ You will need a java runtime (prefably 7) along with maven 3 to run this demo. Y
 
 This demo uses quite a lot of memory so it is worth setting the MAVEN_OPTS to run maven with more memory
 
-		export MAVEN_OPTS=-Xmx512M
+    export MAVEN_OPTS=-Xmx512M
 
 ## Schema Setup
-Note : This will drop the keyspace and create a new one. All existing data will be lost. To specify contact points use the contactPoints command line parameter e.g. '-DcontactPoints=192.168.25.100,192.168.25.101' The contact points can take mulitple points in the IP,IP,IP (no spaces).
+Note : This will drop the keyspace and create a new one. All existing data will be lost. 
 
-Set up the schema 
+To specify contact points use the contactPoints command line parameter e.g. '-DcontactPoints=192.168.25.100,192.168.25.101'
+The contact points can take mulitple points in the IP,IP,IP (no spaces).
 
-		mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaSetupSingle"
-		
+To create the a multi data center cluster with a standard Cassandra, Analytics and Solr set up run the following
+
+    mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaSetupMulti" 
+
+To create the a single node cluster with replication factor of 1 for standard localhost setup, run the following
+
+    mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaSetupSingle"
+
 To run the insert
 
-		mvn clean compile exec:java -Dexec.mainClass="com.heb.finance.analytics.Main" -DstopSize=1000000
+    mvn clean compile exec:java -Dexec.mainClass="com.heb.finance.analytics.Main" -DstopSize=1000000
 		
 The stopSize property allows us to specify the number of inserts we want to run. 
