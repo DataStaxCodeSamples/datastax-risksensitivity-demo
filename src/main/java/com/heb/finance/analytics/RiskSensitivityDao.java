@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;
@@ -16,6 +17,8 @@ import com.heb.finance.analytics.model.RiskSensitivity;
 
 public class RiskSensitivityDao {
 
+	private static final Logger LOG = Logger.getLogger("RiskSensitivityDao");
+	
 	private Cluster cluster;
 	private Session session;
 	
@@ -27,17 +30,17 @@ public class RiskSensitivityDao {
 
 	private Set<String> hierarchySet = new HashSet<String>();
 	
-	public RiskSensitivityDao(String clusterName, String url, String keyspace) {
+	public RiskSensitivityDao(String clusterName, String[] contactPoints, String keyspace) {
 
-		this.cluster = Cluster.builder().addContactPoints(url).build();
+		this.cluster = Cluster.builder().addContactPoints(contactPoints).build();
 		this.session = cluster.connect(keyspace);
-		
+	
 		this.insertStmt = this.session.prepare(INSERT);
 		this.getStmt = this.session.prepare(GET);
 	}
 	
 	public void shutdown(){
-		System.out.println("No of distinct hierarchys : " + hierarchySet.size());
+		LOG.info("No of distinct hierarchys : " + hierarchySet.size());
 		
 		this.cluster.shutdown();
 	}

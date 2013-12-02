@@ -9,19 +9,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
+import com.datastax.driver.core.exceptions.ReadTimeoutException;
 import com.heb.finance.analytics.model.RiskSensitivity;
 
 public class RiskHierarchyAggregator {
 
-	@Autowired
+	private static final Logger LOG = Logger.getLogger("RiskHierarchyAggregator");
+	
 	private RiskSensitivityDao riskSensitivityDao;
-
-	@Resource
 	private Map<String, Long> timedAggMap;
 
 	private long aggregateCount = 0;
@@ -29,7 +26,9 @@ public class RiskHierarchyAggregator {
 	private ScheduledExecutorService execTimed = Executors.newScheduledThreadPool(1);
 	private ExecutorService execAggreg = Executors.newSingleThreadExecutor();
 
-	public RiskHierarchyAggregator() {
+	public RiskHierarchyAggregator(RiskSensitivityDao riskSensitivityDao, Map<String, Long> timedAggMap) {
+		this.riskSensitivityDao =riskSensitivityDao;
+		this.timedAggMap = timedAggMap;
 	}
 
 	public void init() {
@@ -56,19 +55,15 @@ public class RiskHierarchyAggregator {
 						counter++;
 					}
 				}
-				if (counter > 0) {
-					System.out.println("Added " + counter + " (" + aggQueue.size() + ")");
-				}
 			}
-		}, 5000, 2000, TimeUnit.MILLISECONDS);
+		}, 5000, 500, TimeUnit.MILLISECONDS);
 	}
 
 	private void startAggregator() {
 		execAggreg.execute(new Runnable(){
 
 			@Override
-			public void run() {
-				
+			public void run() {							
 				while(true){
 					String hier = aggQueue.poll();
 					
@@ -77,14 +72,12 @@ public class RiskHierarchyAggregator {
 						hier = aggQueue.poll();				
 						aggregateCount++;
 						
-						if (aggregateCount%100000 == 0){
-							System.out.println("Aggregated " + aggregateCount + " Total Size (" + aggQueue.size() + ")");
+						if (aggregateCount % 1000 == 0){
+							LOG.info("Aggregated " + aggregateCount + " Total Size (" + aggQueue.size() + ")");
 						}
-					}
+					}		
 					
-					System.out.println("Finish Aggregate Run - AggSize : " + aggQueue.size() + " TimedQueueSize : " + timedAggMap.size());
-					
-					sleep(1000);
+					sleep(100);
 				}
 			}		
 		});
@@ -100,7 +93,13 @@ public class RiskHierarchyAggregator {
 	}
 
 	private void aggregate(String hier) {
-		List<RiskSensitivity> riskByHier = this.riskSensitivityDao.getRiskByHier(hier);
+		List<RiskSensitivity> riskByHier;
+		try{
+			riskByHier = this.riskSensitivityDao.getRiskByHier(hier);
+		}catch (ReadTimeoutException e){
+			LOG.info("Caugh Timeout - continuing");
+			return;
+		}
 
 		// Run some groupings.
 		Map<String, Double> pathSensNameMap = new HashMap<String, Double>();
@@ -130,7 +129,7 @@ public class RiskHierarchyAggregator {
 				this.riskSensitivityDao.insert(sensName, newhierarchyParent, newhierarchyChild,
 						pathSensNameMap.get(sensName));
 			}
-			
+					
 			timedAggMap.put(newhierarchyParent, System.currentTimeMillis() + 1000);
 		}
 	}
