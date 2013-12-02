@@ -1,6 +1,6 @@
 # Realtime Risk Aggregator Demo
 
-This is a demo to show how Cassandra can be used to provide realtime aggregation of risk sensitivities. On a single machine it should process approx 5000 inserts per second while aggregating parts of the hierarchy.
+This is a demo to show how Cassandra can be used to provide realtime aggregation of risk sensitivities. On a single machine it should process approx 5000 inserts per second while aggregating parts of the hierarchy. 
 
 ## The problem
 
