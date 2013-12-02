@@ -14,11 +14,11 @@ There is a lag due to duplicate parts of the hierarchy updating more than others
 
 For example 
 
-We insert Frankfurt/FX/desk10/trader7/Position23 with sensitivities. 
-We pass Frankfurt/FX/desk10/trader7 to the queue to be aggregated. 
-After all positions for Frankfurt/FX/desk10/trade7 have been aggregated then
-We pass Frankfurt/FX/desk10 to the queue 
-And so on until we get aggregate all asset types for Frankfurt.
+    We insert Frankfurt/FX/desk10/trader7/Position23 with sensitivities calculations
+    We pass Frankfurt/FX/desk10/trader7 to the queue to be aggregated. 
+    After all positions for Frankfurt/FX/desk10/trade7 have been aggregated then
+    We pass Frankfurt/FX/desk10 to the queue 
+    And so on until we get aggregate all asset types for Frankfurt.
 
 In this demo there are 10 locations, 10 asset types, 20 desks, 20 Traders and 100 positions. This gives 4 millions variations of the hierarchy. Each position can have 10 sensitivities. 
 
