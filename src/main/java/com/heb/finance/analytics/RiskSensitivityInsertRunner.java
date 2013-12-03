@@ -65,7 +65,7 @@ public class RiskSensitivityInsertRunner {
 
 			if (counter % 10000 == 0) {
 				LOG.info("Processed " + counter);
-				sleep(500);
+				sleep(20);
 			}
 
 			if (counter == STOP_COUNTER) {
