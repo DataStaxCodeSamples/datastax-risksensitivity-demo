@@ -1,6 +1,6 @@
 # Realtime Risk Aggregator Demo
 
-This is a demo to show how Cassandra can be used to provide realtime aggregation of risk sensitivities. On a single machine it should process approx 5000 inserts per second while aggregating parts of the hierarchy.
+This is a demo to show how Cassandra can be used to provide realtime aggregation of risk sensitivities. On a single machine it should process approx 5000 inserts per second while aggregating parts of the hierarchy. 
 
 ## The problem
 
@@ -24,7 +24,7 @@ In this demo there are 10 locations, 10 asset types, 20 desks, 20 Traders and 10
 
 ## Running the demo 
 
-You will need a java runtime (prefably 7) along with maven 3 to run this demo. You will need to be comfortable installing and starting Cassandra and DSE (hadoop and solr nodes included).
+You will need a java runtime (preferably 7) along with maven 3 to run this demo. You will need to be comfortable installing and starting Cassandra and DSE (hadoop and solr nodes included).
 
 This demo uses quite a lot of memory so it is worth setting the MAVEN_OPTS to run maven with more memory
 
