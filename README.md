@@ -36,13 +36,13 @@ Note : This will drop the keyspace and create a new one. All existing data will 
 To specify contact points use the contactPoints command line parameter e.g. '-DcontactPoints=192.168.25.100,192.168.25.101'
 The contact points can take mulitple points in the IP,IP,IP (no spaces).
 
-To create the a multi data center cluster with a standard Cassandra, Analytics and Solr set up run the following
-
-    mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaSetupMulti" 
-
 To create the a single node cluster with replication factor of 1 for standard localhost setup, run the following
 
     mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaSetupSingle"
+
+To create the a multi data center cluster with a standard Cassandra, Analytics and Solr set up run the following
+
+    mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaSetupMulti" 
 
 To run the insert
 
