@@ -19,6 +19,15 @@ For example
     After all positions for Frankfurt/FX/desk10/trade7 have been aggregated then
     We pass Frankfurt/FX/desk10 to the queue 
     And so on until we get aggregate all asset types for Frankfurt.
+   
+We want to be able to run the following types of queries
+
+	select * from risk_sensitivities_hierarchy  where hier_path = 'Paris/FX';
+
+	select * from risk_sensitivities_hierarchy  where hier_path = 'Paris/FX/desk4' and sub_hier_path='trader3';
+
+	select * from risk_sensitivities_hierarchy  where hier_path = 'Paris/FX/desk4' and sub_hier_path='trader3' and risk_sens_name='irDelta';
+
 
 In this demo there are 10 locations, 10 asset types, 20 desks, 20 Traders and 100 positions. This gives 4 millions variations of the hierarchy. Each position can have 10 sensitivities. 
 
