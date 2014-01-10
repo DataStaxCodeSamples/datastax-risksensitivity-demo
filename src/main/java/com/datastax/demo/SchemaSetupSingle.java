@@ -9,7 +9,8 @@ public class SchemaSetupSingle extends SchemaSetup {
 		
 		String keyspace = PropertyHelper.getProperty("keyspace", "dse_demo_analytics");
 		
-		CREATE_KEYSPACE = "CREATE KEYSPACE if not exists " + keyspace + " WITH replication = "
+		DROP_KEYSPACE = "Drop keyspace " +keyspace;
+		CREATE_KEYSPACE = "CREATE KEYSPACE " + keyspace + " WITH replication = "
 				+ "{'class' : 'SimpleStrategy', 'replication_factor' : 1}";
 		
 		LOG.info ("Running Single Node DSE setup.");

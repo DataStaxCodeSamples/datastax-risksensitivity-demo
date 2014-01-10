@@ -1,6 +1,6 @@
 use dse_demo_analytics; 
 
-create table if not exists risk_sensitivities_hierarchy ( 
+create table risk_sensitivities_hierarchy ( 
 	hier_path text,
 	sub_hier_path text, 
 	risk_sens_name text, 

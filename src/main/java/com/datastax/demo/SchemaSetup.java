@@ -28,12 +28,11 @@ public abstract class SchemaSetup {
 	}
 	
 	void internalSetup() {
-		//this.runAllowFail(DROP_KEYSPACE);
+		this.runAllowFail(DROP_KEYSPACE);
 			
 		//Sleep to allow for changes to be propagted.
-		//sleep(1000);
+		sleep(1000);
 
-		LOG.info("Running : " + CREATE_KEYSPACE);
 		this.run(CREATE_KEYSPACE);
 		
 		this.runfile();		
