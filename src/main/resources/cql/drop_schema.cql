@@ -1,4 +1,4 @@
-use dse_demo_analytics; 
+use datastax_risk_demo; 
 
 truncate risk_sensitivities_hierarchy;
 
