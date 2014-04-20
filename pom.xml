@@ -8,91 +8,21 @@
 	<packaging>jar</packaging>
 	<name>datastax-risksensitivity-demo</name>
 
-    <properties>
-        <org.springframework.version>3.0.7.RELEASE</org.springframework.version>
-        <metrics.version>3.0.0-BETA1</metrics.version>
-        <jersey.version>1.17.1</jersey.version>
-        <joda-time.version>2.1</joda-time.version>
-        <jms.version>1.1</jms.version>
-        <guava.version>14.0.1</guava.version>
-		<logback.version>1.0.13</logback.version>
-	    <slf4j.version>1.7.5</slf4j.version>
-		<commons-io.version>2.4</commons-io.version>
-		<java-driver-version>1.0.4</java-driver-version>
-    </properties>
-
 	<dependencies>
-    	<dependency>
-        	<groupId>org.springframework</groupId>
-            	<artifactId>spring-core</artifactId>
-                <version>${org.springframework.version}</version>
-			</dependency>
-            <dependency>
-            	<groupId>org.springframework</groupId>
-            	<artifactId>spring-context</artifactId>
-            	<version>${org.springframework.version}</version>
-			</dependency>
-            <dependency>
-            	<groupId>org.springframework</groupId>
-            	<artifactId>spring-test</artifactId>
-            	<version>${org.springframework.version}</version>
-			</dependency>
-
-                        <dependency>
-                                <groupId>com.sun.jersey</groupId>
-                                <artifactId>jersey-server</artifactId>
-                                <version>${jersey.version}</version>
-                        </dependency>
-                        <dependency>
-                                <groupId>com.sun.jersey</groupId>
-                                <artifactId>jersey-servlet</artifactId>
-                                <version>${jersey.version}</version>
-                        </dependency>
-                        <dependency>
-                                <groupId>com.sun.jersey</groupId>
-                                <artifactId>jersey-json</artifactId>
-                                <version>1.8</version>
-                        </dependency>
-                        <dependency>
-                                <groupId>joda-time</groupId>
-                                <artifactId>joda-time</artifactId>
-                                <version>${joda-time.version}</version>
-                        </dependency>
-                        <dependency>
-                                <groupId>commons-io</groupId>
-                                <artifactId>commons-io</artifactId>
-                                <version>${commons-io.version}</version>
-                        </dependency>
-                        <dependency>
-                                <groupId>com.google.guava</groupId>
-                                <artifactId>guava</artifactId>
-                                <version>${guava.version}</version>
-                        </dependency>
-                        <dependency>
-                                <groupId>org.slf4j</groupId>
-                                <artifactId>slf4j-api</artifactId>
-                                <version>${slf4j.version}</version>
-                        </dependency>
-                        <dependency>
-                                <groupId>ch.qos.logback</groupId>
-                                <artifactId>logback-classic</artifactId>
-                                <version>${logback.version}</version>
-                        </dependency>
-                        <dependency>
-                                <groupId>ch.qos.logback</groupId>
-                                <artifactId>logback-core</artifactId>
-                                <version>${logback.version}</version>
-                        </dependency>
-                        <dependency>
-                                <groupId>junit</groupId>
-                                <artifactId>junit</artifactId>
-                                <version>4.11</version>
-                        </dependency>
-
 		<dependency>
 			<groupId>com.datastax.cassandra</groupId>
 			<artifactId>cassandra-driver-core</artifactId>
-			<version>${java-driver-version}</version>
-		</dependency>		
+			<version>2.0.1</version>
+		</dependency>	
+		<dependency>
+	    	<groupId>ch.qos.logback</groupId>
+    		<artifactId>logback-classic</artifactId>
+    		<version>1.0.9</version>
+		</dependency>
+		<dependency>
+        	<groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
 	</dependencies>
 </project>

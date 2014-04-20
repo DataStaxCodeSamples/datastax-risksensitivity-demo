@@ -3,7 +3,6 @@ package com.heb.finance.analytics;
 import java.util.Map;
 
 import com.heb.finance.analytics.model.RiskSensitivity;
-import com.sun.istack.NotNull;
 
 public class RiskSensitivityPersisterServiceImpl implements RiskSensitivityPersisterService{ 
 
@@ -16,8 +15,8 @@ public class RiskSensitivityPersisterServiceImpl implements RiskSensitivityPersi
 	}
 	
 	@Override
-	public void persist(@NotNull final RiskSensitivity riskSensitivity){
-		
+	public void persist(final RiskSensitivity riskSensitivity){
+			
 		riskSensitivityPathPersister.insert(riskSensitivity);
 		timedAggMap.put(riskSensitivity.getPath(), System.currentTimeMillis() + 10);
 	}

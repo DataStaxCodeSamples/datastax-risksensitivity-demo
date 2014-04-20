@@ -58,3 +58,6 @@ The stopSize property allows us to specify the number of inserts we want to run.
 To remove the tables and the schema, run the following.
 
     mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaTeardown"
+    
+    
+    
